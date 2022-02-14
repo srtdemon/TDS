@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "TDS/FuncLibrary/Types.h"
 #include "TDSCharacter.generated.h"
 
 UCLASS(Blueprintable)
@@ -39,6 +40,11 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UDecalComponent* CursorToWorld;
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+		EMovementState MovementState = EMovementState::Run_State;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+		FCharacterSpeed MovementInfo;
+
 	UFUNCTION()
 	void InputAxisY(float Value);
 	UFUNCTION()
@@ -49,5 +55,10 @@ public:
 	//Tick Func
 	UFUNCTION()
 	void MovementTick(float DeltaTime);
+
+	UFUNCTION(BlueprintCallable)
+		void CharacterUpdate();
+	UFUNCTION(BlueprintCallable)
+		void ChangeMovementState(EMovementState NewMovementState);
 };
 
